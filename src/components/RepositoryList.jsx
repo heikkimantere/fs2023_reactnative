@@ -3,7 +3,7 @@ import RepositoryItem from './RepositoryItem';
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10,
+    height: 0,
   },
 });
 
@@ -65,7 +65,7 @@ const RepositoryList = () => {
       data={repositories}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={renderItem}
-      // other props
+      contentContainerStyle={{backgroundColor: '#eee'}}
     />
   );
 };

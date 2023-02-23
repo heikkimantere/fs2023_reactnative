@@ -1,5 +1,4 @@
-import Constants from "expo-constants";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import AppBar from "./AppBar";
 import RepositoryList from "./RepositoryList";
 
