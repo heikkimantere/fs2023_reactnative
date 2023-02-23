@@ -64,11 +64,11 @@ const RepositoryItem = ({ item }) => {
 
       <View style={[styles.row, styles.spaceEvenly]}>
         <View style={styles.figures}>
-          <Text fontWeight="bold">{item.stargazersCount}</Text>
+          <Text fontWeight="bold">{formatToKilos(item.stargazersCount)}</Text>
           <Text>Stars</Text>
         </View>
         <View style={styles.figures}>
-          <Text fontWeight="bold">{item.forksCount}</Text>
+          <Text fontWeight="bold">{formatToKilos(item.forksCount)}</Text>
           <Text>Forks</Text>
         </View>
         <View style={styles.figures}>
@@ -86,14 +86,9 @@ const RepositoryItem = ({ item }) => {
 
 export default RepositoryItem;
 
-/**
- *  id: 'jaredpalmer.formik',
-    fullName: 'jaredpalmer/formik',
-    description: 'Build forms in React, without the tears',
-    language: 'TypeScript',
-    forksCount: 1589,
-    stargazersCount: 21553,
-    ratingAverage: 88,
-    reviewCount: 4,
-    ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/4060187?v=4',
- */
+const formatToKilos = (count) => {
+  if (count < 1000) {
+    return count
+  }
+  return `${Math.round(count/100)/10}k`
+}
