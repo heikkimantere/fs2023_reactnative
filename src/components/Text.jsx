@@ -1,12 +1,18 @@
-import { Text as NativeText, StyleSheet } from 'react-native';
+import { Text as NativeText, StyleSheet, Platform } from "react-native";
 
-import theme from '../theme';
+import theme from "../theme";
+
+const OSFont = Platform.select({
+  ios: theme.fonts.ios,
+  android: theme.fonts.android,
+  default: theme.fonts.default,
+});
 
 const styles = StyleSheet.create({
   text: {
     color: theme.colors.textPrimary,
     fontSize: theme.fontSizes.body,
-    fontFamily: theme.fonts.main,
+    fontFamily: OSFont,
     fontWeight: theme.fontWeights.normal,
   },
   colorTextSecondary: {
@@ -22,18 +28,18 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeights.bold,
   },
   colorWhite: {
-    color: 'white'
-  }
+    color: "white",
+  },
 });
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
     styles.text,
-    color === 'textSecondary' && styles.colorTextSecondary,
-    color === 'primary' && styles.colorPrimary,
-    color === 'white' && styles.colorWhite,
-    fontSize === 'subheading' && styles.fontSizeSubheading,
-    fontWeight === 'bold' && styles.fontWeightBold,
+    color === "textSecondary" && styles.colorTextSecondary,
+    color === "primary" && styles.colorPrimary,
+    color === "white" && styles.colorWhite,
+    fontSize === "subheading" && styles.fontSizeSubheading,
+    fontWeight === "bold" && styles.fontWeightBold,
     style,
   ];
 

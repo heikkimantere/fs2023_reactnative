@@ -9,7 +9,9 @@ const theme = {
     subheading: 16,
   },
   fonts: {
-    main: "System",
+    ios: "Arial",
+    android: "Roboto",
+    default: "System",
   },
   fontWeights: {
     normal: "400",
