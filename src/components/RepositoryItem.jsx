@@ -50,14 +50,20 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.container} testID="repositoryItem">
+    <View
+      style={styles.container}
+      testID="repositoryItem"
+      //testID={item.fullName}
+    >
       <View style={styles.row}>
         <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
         <View style={styles.titleRow}>
-          <Text fontWeight="bold" testID="fullName">{item.fullName}</Text>
+          <Text fontWeight="bold" testID="fullName">
+            {item.fullName}
+          </Text>
           <Text style={styles.description}>{item.description}</Text>
           <View style={styles.languageContainer}>
-            <Text style={styles.language}>Language: {item.language}</Text>
+            <Text style={styles.language}>{item.language}</Text>
           </View>
         </View>
       </View>
@@ -72,7 +78,7 @@ const RepositoryItem = ({ item }) => {
           <Text>Forks</Text>
         </View>
         <View style={styles.figures}>
-          <Text fontWeight="bold">{item.reviewCount}</Text>
+          <Text fontWeight="bold">{formatToKilos(item.reviewCount)}</Text>
           <Text>Reviews</Text>
         </View>
         <View style={styles.figures}>
@@ -86,7 +92,7 @@ const RepositoryItem = ({ item }) => {
 
 export default RepositoryItem;
 
-const formatToKilos = (count) => {
+export const formatToKilos = (count) => {
   if (count < 1000) {
     return count;
   }

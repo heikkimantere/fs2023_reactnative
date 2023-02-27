@@ -1,5 +1,6 @@
 import RepositoryListContainer from "../../components/RepositoryListContainer";
-import { render, screen } from "@testing-library/react-native";
+import { render, screen, within } from "@testing-library/react-native";
+import { formatToKilos } from "../../components/RepositoryItem";
 
 const repositories = {
   totalCount: 8,
@@ -47,19 +48,18 @@ describe("RepositoryList", () => {
 
       const repos = screen.getAllByTestId("repositoryItem");
 
-      repos.map((repo, index) => {
+      repos.map((_, index) => {
+        const data = repositories.edges[index].node;
+        expect(repos[index]).toHaveTextContent(data.fullName);
+        expect(repos[index]).toHaveTextContent(data.description);
+        expect(repos[index]).toHaveTextContent(data.language);
+        expect(repos[index]).toHaveTextContent(formatToKilos(data.forksCount));
         expect(repos[index]).toHaveTextContent(
-          repositories.edges[index].node.description
+          formatToKilos(data.stargazersCount)
         );
-        expect(repos[index]).toHaveTextContent(
-          repositories.edges[index].node.fullName
-        );
-        expect(repos[index]).toHaveTextContent(
-          repositories.edges[index].node.language
-        );
+        expect(repos[index]).toHaveTextContent(data.ratingAverage);
+        expect(repos[index]).toHaveTextContent(formatToKilos(data.reviewCount));
       });
-
-      //screen.debug();
     });
   });
 });
