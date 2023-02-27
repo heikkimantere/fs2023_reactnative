@@ -1,5 +1,5 @@
 import RepositoryListContainer from "../../components/RepositoryListContainer";
-import { render, screen, within } from "@testing-library/react-native";
+import { render, screen } from "@testing-library/react-native";
 import { formatToKilos } from "../../components/RepositoryItem";
 
 const repositories = {
