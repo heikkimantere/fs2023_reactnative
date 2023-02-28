@@ -14,6 +14,7 @@ export const GET_REPOSITORIES = gql`
           stargazersCount
           fullName
           id
+          url
         }
       }
     }
@@ -33,6 +34,18 @@ export const GET_REPOSITORY_BY_ID = gql`
       stargazersCount
       fullName
       url
+      reviews {
+        edges {
+          node {
+            rating
+            user {
+              username
+            }
+            createdAt
+            text
+          }
+        }
+      }
     }
   }
 `;

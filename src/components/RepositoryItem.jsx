@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Pressable, Linking } from "react-native";
 import { useNavigate } from "react-router-native";
 import theme from "../theme";
 import Text from "./Text";
@@ -47,15 +47,24 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
   },
+  button: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: 3,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
-const RepositoryItem = ({ item }) => {
-  console.log(item);
+const RepositoryItem = ({ item, showLink = false }) => {
   const navigate = useNavigate();
+  const openLink = () => Linking.openURL(item.url);
 
   return (
     <Pressable
-      onPress={() => navigate(`/${item.id}`)}
+      onPress={() => (showLink ? undefined : navigate(`/${item.id}`))}
       style={styles.container}
       testID="repositoryItem"
     >
@@ -90,6 +99,14 @@ const RepositoryItem = ({ item }) => {
           <Text>Rating</Text>
         </View>
       </View>
+
+      {showLink && (
+        <Pressable style={styles.button} onPress={openLink}>
+          <Text color="white" fontWeight="bold">
+            Open in GitHub
+          </Text>
+        </Pressable>
+      )}
     </Pressable>
   );
 };
