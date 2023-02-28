@@ -1,4 +1,5 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
+import { useNavigate } from "react-router-native";
 import theme from "../theme";
 import Text from "./Text";
 
@@ -49,11 +50,14 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ item }) => {
+  console.log(item);
+  const navigate = useNavigate();
+
   return (
-    <View
+    <Pressable
+      onPress={() => navigate(`/${item.id}`)}
       style={styles.container}
       testID="repositoryItem"
-      //testID={item.fullName}
     >
       <View style={styles.row}>
         <Image source={{ uri: item.ownerAvatarUrl }} style={styles.avatar} />
@@ -63,7 +67,7 @@ const RepositoryItem = ({ item }) => {
           </Text>
           <Text style={styles.description}>{item.description}</Text>
           <View style={styles.languageContainer}>
-            <Text style={styles.language}>{item.language}</Text>
+            <Text color="white">{item.language}</Text>
           </View>
         </View>
       </View>
@@ -86,7 +90,7 @@ const RepositoryItem = ({ item }) => {
           <Text>Rating</Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

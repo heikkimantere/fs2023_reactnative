@@ -13,8 +13,26 @@ export const GET_REPOSITORIES = gql`
           forksCount
           stargazersCount
           fullName
+          id
         }
       }
+    }
+  }
+`;
+
+export const GET_REPOSITORY_BY_ID = gql`
+  query repository($id: ID!) {
+    repository(id: $id) {
+      id
+      ownerAvatarUrl
+      description
+      language
+      reviewCount
+      ratingAverage
+      forksCount
+      stargazersCount
+      fullName
+      url
     }
   }
 `;
