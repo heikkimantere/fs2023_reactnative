@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import theme from "../theme";
 import Text from "./Text";
+const format = require("date-fns/format");
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,9 @@ const Review = ({ review }) => {
       </View>
       <View style={styles.text}>
         <Text fontWeight="bold">{user.username}</Text>
-        <Text style={{ marginVertical: 5 }}>{createdAt}</Text>
+        <Text style={{ marginVertical: 5 }}>
+          {format(new Date(createdAt), "d.M.yyyy")}
+        </Text>
         <Text>{text}</Text>
       </View>
     </View>

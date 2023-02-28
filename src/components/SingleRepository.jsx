@@ -11,6 +11,7 @@ const SingleRepository = () => {
 
   const { data } = useQuery(GET_REPOSITORY_BY_ID, {
     variables: { id },
+    fetchPolicy: "cache-and-network",
   });
 
   if (!data?.repository) {

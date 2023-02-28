@@ -14,10 +14,12 @@ const styles = StyleSheet.create({
   navBar: {
     paddingTop: Constants.statusBarHeight,
     flexDirection: "row",
+    paddingLeft: 10,
     justifyContent: "flex-start",
   },
   link: {
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "center",
     whiteSpace: "nowrap",
@@ -42,6 +44,13 @@ const AppBar = () => {
             Repositories
           </Text>
         </Link>
+        {me?.id && (
+          <Link style={styles.link} to="/addreview">
+            <Text color="white" fontWeight="bold" numberOfLines={1}>
+              Add a review
+            </Text>
+          </Link>
+        )}
         {me?.id ? (
           <Pressable style={styles.link} onPress={signOut}>
             <Text color="white" fontWeight="bold" numberOfLines={1}>
