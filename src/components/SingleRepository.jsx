@@ -28,6 +28,7 @@ const SingleRepository = () => {
       ListHeaderComponent={<RepositoryItem item={data.repository} showLink />}
       data={data.repository.reviews.edges}
       renderItem={renderItem}
+      keyExtractor={(item) => item.node.id}
       contentContainerStyle={{ backgroundColor: "#eee", paddingBottom: 130 }}
     />
   );

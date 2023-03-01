@@ -1,10 +1,16 @@
 import { FlatList, Pressable, View } from "react-native";
 import RepositoryItem from "./RepositoryItem";
-import { Menu, Provider } from "react-native-paper";
+import { Menu, Provider, Searchbar } from "react-native-paper";
 import Text from "./Text";
 import { useState } from "react";
 
-const RepositoryListContainer = ({ repositories, order, setOrder }) => {
+const RepositoryListContainer = ({
+  repositories,
+  order,
+  setOrder,
+  onChangeSearch,
+  keyword,
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -16,15 +22,23 @@ const RepositoryListContainer = ({ repositories, order, setOrder }) => {
       <FlatList
         data={repositoryNodes}
         renderItem={renderItem}
-        ListHeaderComponent={<SelectOrder order={order} setOrder={setOrder} />}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <SelectOrder
+            order={order}
+            setOrder={setOrder}
+            onChangeSearch={onChangeSearch}
+            keyword={keyword}
+          />
+        }
         ListHeaderComponentStyle={{ zIndex: 100 }}
-        contentContainerStyle={{ backgroundColor: "#eee" }}
+        contentContainerStyle={{ backgroundColor: "#eee", paddingBottom: 150 }}
       />
     </View>
   );
 };
 
-const SelectOrder = ({ setOrder, order }) => {
+const SelectOrder = ({ setOrder, order, onChangeSearch, keyword }) => {
   const [visible, setVisible] = useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -37,16 +51,21 @@ const SelectOrder = ({ setOrder, order }) => {
   const orderText = (order) => {
     switch (order) {
       case "newest":
-        return "Newest first";
+        return "Latest";
       case "highestRating":
-        return "Highest rating first";
+        return "Highest rating";
       case "lowestRating":
-        return "Lowest rating first";
+        return "Lowest rating";
     }
   };
 
   return (
     <Provider>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={keyword}
+      />
       <Menu
         visible={visible}
         onDismiss={closeMenu}
@@ -58,7 +77,7 @@ const SelectOrder = ({ setOrder, order }) => {
               padding: 15,
             }}
           >
-            <Text>Order by: {orderText(order)}</Text>
+            <Text>Sort by: {orderText(order)}</Text>
           </Pressable>
         }
       >

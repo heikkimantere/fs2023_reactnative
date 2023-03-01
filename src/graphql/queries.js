@@ -4,8 +4,13 @@ export const GET_REPOSITORIES = gql`
   query Repositories(
     $orderDirection: OrderDirection
     $orderBy: AllRepositoriesOrderBy
+    $searchKeyword: String
   ) {
-    repositories(orderDirection: $orderDirection, orderBy: $orderBy) {
+    repositories(
+      orderDirection: $orderDirection
+      orderBy: $orderBy
+      searchKeyword: $searchKeyword
+    ) {
       edges {
         node {
           ownerAvatarUrl
@@ -44,6 +49,7 @@ export const GET_REPOSITORY_BY_ID = gql`
             user {
               username
             }
+            id
             createdAt
             text
           }
