@@ -20,7 +20,7 @@ const SingleRepository = () => {
 
   const renderItem = (item) => {
     const review = item.item.node;
-    return <Review review={review} />;
+    return <Review review={review} type="repositoryReview" />;
   };
 
   return (

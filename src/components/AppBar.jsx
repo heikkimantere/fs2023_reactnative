@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View, Pressable } from "react-native";
 import Constants from "expo-constants";
 import Text from "./Text";
 import theme from "../theme";
-import { Link } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 import { useApolloClient, useQuery } from "@apollo/client";
 import { ME } from "../graphql/queries";
 import { useAuthStorage } from "../hooks/useAuthStorage";
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const navigate = useNavigate();
   const { data } = useQuery(ME);
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
@@ -34,6 +35,7 @@ const AppBar = () => {
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
+    navigate("/");
   };
 
   return (
@@ -44,10 +46,18 @@ const AppBar = () => {
             Repositories
           </Text>
         </Link>
+
         {me?.id && (
           <Link style={styles.link} to="/addreview">
             <Text color="white" fontWeight="bold" numberOfLines={1}>
               Add a review
+            </Text>
+          </Link>
+        )}
+        {me?.id && (
+          <Link style={styles.link} to="/myreviews">
+            <Text color="white" fontWeight="bold" numberOfLines={1}>
+              My reviews
             </Text>
           </Link>
         )}
@@ -58,6 +68,7 @@ const AppBar = () => {
             </Text>
           </Pressable>
         )}
+
         {!me?.id && (
           <Link style={styles.link} to="/signin">
             <Text color="white" fontWeight="bold">
