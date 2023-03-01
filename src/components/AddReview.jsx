@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useMutation } from "@apollo/client";
 import { ADD_REVIEW } from "../graphql/mutations";
 import { useNavigate } from "react-router-native";
+import { ME } from "../graphql/queries";
 
 const styles = StyleSheet.create({
   button: {
@@ -32,8 +33,17 @@ const validationSchema = yup.object().shape({
 });
 
 const AddReview = () => {
-  const [mutate] = useMutation(ADD_REVIEW);
   const navigate = useNavigate();
+  const [mutate] = useMutation(ADD_REVIEW, {
+    refetchQueries: [
+      {
+        query: ME,
+        variables: {
+          includeReviews: true,
+        },
+      },
+    ],
+  });
 
   const initialValues = {
     ownerName: "",
