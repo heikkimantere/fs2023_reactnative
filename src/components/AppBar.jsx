@@ -51,16 +51,24 @@ const AppBar = () => {
             </Text>
           </Link>
         )}
-        {me?.id ? (
+        {me?.id && (
           <Pressable style={styles.link} onPress={signOut}>
             <Text color="white" fontWeight="bold" numberOfLines={1}>
               Sign out {me.username}
             </Text>
           </Pressable>
-        ) : (
+        )}
+        {!me?.id && (
           <Link style={styles.link} to="/signin">
             <Text color="white" fontWeight="bold">
               Sign in
+            </Text>
+          </Link>
+        )}
+        {!me?.id && (
+          <Link style={styles.link} to="/signup">
+            <Text color="white" fontWeight="bold">
+              Sign up
             </Text>
           </Link>
         )}

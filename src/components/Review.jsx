@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import theme from "../theme";
 import Text from "./Text";
-const format = require("date-fns/format");
+import format from "date-fns/format";
 
 const styles = StyleSheet.create({
   container: {
