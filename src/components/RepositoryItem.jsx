@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     padding: 10,
+    zIndex: -1,
   },
   spaceEvenly: {
     justifyContent: "space-evenly",

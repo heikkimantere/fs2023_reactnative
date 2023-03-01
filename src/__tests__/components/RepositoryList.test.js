@@ -1,6 +1,7 @@
 import RepositoryListContainer from "../../components/RepositoryListContainer";
 import { render, screen } from "@testing-library/react-native";
 import { formatToKilos } from "../../components/RepositoryItem";
+import { NativeRouter } from "react-router-native";
 
 const repositories = {
   totalCount: 8,
@@ -44,7 +45,11 @@ const repositories = {
 describe("RepositoryList", () => {
   describe("RepositoryListContainer", () => {
     it("renders repository information correctly", () => {
-      render(<RepositoryListContainer repositories={repositories} />);
+      render(
+        <NativeRouter>
+          <RepositoryListContainer repositories={repositories} />
+        </NativeRouter>
+      );
 
       const repos = screen.getAllByTestId("repositoryItem");
 
