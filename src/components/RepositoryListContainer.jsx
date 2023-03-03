@@ -10,6 +10,7 @@ const RepositoryListContainer = ({
   setOrder,
   onChangeSearch,
   keyword,
+  onEndReach,
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
@@ -31,8 +32,14 @@ const RepositoryListContainer = ({
             keyword={keyword}
           />
         }
+        getItemLayout={(_i, index) => ({
+          length: 160,
+          offset: 160 * index,
+          index,
+        })}
         ListHeaderComponentStyle={{ zIndex: 100 }}
         contentContainerStyle={{ backgroundColor: "#eee", paddingBottom: 150 }}
+        onEndReached={onEndReach}
       />
     </View>
   );

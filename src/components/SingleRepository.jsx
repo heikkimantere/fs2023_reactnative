@@ -1,7 +1,6 @@
-import { useQuery } from "@apollo/client";
 import { FlatList } from "react-native";
 import { useParams } from "react-router-native";
-import { GET_REPOSITORY_BY_ID } from "../graphql/queries";
+import useRepositoryById from "../hooks/useRepositoryById";
 import RepositoryItem from "./RepositoryItem";
 import Review from "./Review";
 
@@ -9,10 +8,7 @@ const SingleRepository = () => {
   const params = useParams();
   const id = params.id;
 
-  const { data } = useQuery(GET_REPOSITORY_BY_ID, {
-    variables: { id },
-    fetchPolicy: "cache-and-network",
-  });
+  const { data, fetchMore } = useRepositoryById({ id, first: 3 });
 
   if (!data?.repository) {
     return null;
@@ -30,6 +26,8 @@ const SingleRepository = () => {
       renderItem={renderItem}
       keyExtractor={(item) => item.node.id}
       contentContainerStyle={{ backgroundColor: "#eee", paddingBottom: 130 }}
+      onEndReached={() => fetchMore()}
+      onEndReachedThreshold={0.1}
     />
   );
 };

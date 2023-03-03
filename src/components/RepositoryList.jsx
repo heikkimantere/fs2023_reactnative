@@ -9,11 +9,14 @@ const RepositoryList = () => {
   const orderBy = order === "newest" ? "CREATED_AT" : "RATING_AVERAGE";
   const orderDirection = order === "lowestRating" ? "ASC" : "DESC";
   const [searchKeyword] = useDebounce(keyword, 500);
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
     orderBy,
     orderDirection,
     searchKeyword,
+    first: 6,
   });
+
+  const onEndReach = () => fetchMore();
 
   const onChangeSearch = (value) => setKeyword(value);
 
@@ -24,6 +27,7 @@ const RepositoryList = () => {
       setOrder={setOrder}
       onChangeSearch={onChangeSearch}
       searchKeyword={keyword}
+      onEndReach={onEndReach}
     />
   );
 };
